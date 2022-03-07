@@ -9,7 +9,6 @@ const PizzaSchema = new Schema({
     createdBy: {
         type: String
     },
-   
     createdAt: {
         type: Date, 
         // If no value is provided in this field when the user creates new data, the Date.now function will be executed and will provide a timestamp. This way we don't have to create the timestamp elsewhere and send that data.
