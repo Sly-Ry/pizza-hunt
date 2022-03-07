@@ -1,4 +1,3 @@
-const { process_params } = require('express/lib/router');
 const { Pizza } = require('../models');
 
 const pizzaController = {
