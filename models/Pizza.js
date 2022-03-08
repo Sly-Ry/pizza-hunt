@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 // We don't have to define the fields, as MongoDB will allow the data anyway, but for for clarity and usability, we should regulate what the data will look like.
 const PizzaSchema = new Schema(
@@ -14,6 +15,8 @@ const PizzaSchema = new Schema(
             type: Date, 
             // If no value is provided in this field when the user creates new data, the Date.now function will be executed and will provide a timestamp. This way we don't have to create the timestamp elsewhere and send that data.
             default: Date.now,
+            // With the 'get' option in place, every time we retrieve a pizza, the value in the createdAt field will be formatted by the dateFormat() function and used instead of the default timestamp value. This way, we can use the timestamp value for storage, but use a prettier version of it for display.
+            get: (createdAtVal) => dateFormat(createdAtVal)
         },
         size: {
             type: String,
@@ -33,6 +36,7 @@ const PizzaSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
+            getters: true
         },
         // We set id to false because this is a virtual that Mongoose returns, and we don’t need it.
         id: false
