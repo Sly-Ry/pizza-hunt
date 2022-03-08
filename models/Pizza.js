@@ -13,7 +13,7 @@ const PizzaSchema = new Schema(
         createdAt: {
             type: Date, 
             // If no value is provided in this field when the user creates new data, the Date.now function will be executed and will provide a timestamp. This way we don't have to create the timestamp elsewhere and send that data.
-            default: Date.now
+            default: Date.now,
         },
         size: {
             type: String,
@@ -22,7 +22,7 @@ const PizzaSchema = new Schema(
         // This indicates an array as the data type. You could also specify 'Array' in place of the brackets
         toppings: [],
         // We need to tell Mongoose to expect an ObjectId and to tell it that its data comes from the Comment model. 
-        comment: [
+        comments: [
             {
                 type: Schema.Types.ObjectId,
                 // The ref property is especially important because it tells the Pizza model which documents to search to find the right comments.

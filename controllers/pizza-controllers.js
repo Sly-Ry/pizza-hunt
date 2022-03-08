@@ -5,6 +5,14 @@ const pizzaController = {
     getAllPizza(req, res) {
         // Mongoose .find() method works much like the Sequelize .findAll() method.
         Pizza.find({})
+        .populate({
+            path: 'comments',
+            // The select option tells Mongoose that we don't care about the __v field on comments either. The minus sign - in front of the field indicates that we don't want it to be returned. If we didn't have it, it would mean that it would return only the __v field
+            select: '-__v'
+        })
+        .select('-__v')
+        // .sort({ _id: -1 }) sorts in DESC order by the _id value
+        .sort({ _id: -1 })
         .then(dbPizzaData => res.json(dbPizzaData))
         .catch(err => {
             console.log(err);
@@ -15,6 +23,11 @@ const pizzaController = {
     // Get one pizza by id
     getPizzaById({ params }, res) {
         Pizza.findOne({ _id: params.id })
+        .populate({
+            path: 'comments',
+            select: '-__v'
+        })
+        .select('-__v')
         .then(dbPizzaData => {
             // if no pizza is found, send 404
             if (!dbPizzaData) {
