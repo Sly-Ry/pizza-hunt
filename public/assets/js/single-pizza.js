@@ -9,6 +9,30 @@ const $newCommentForm = document.querySelector('#new-comment-form');
 
 let pizzaId;
 
+function getPizza() {
+  // get id of pizza
+  const searchParams = new URLSearchParams(document.location.search.substring(1));
+  const pizzaId = searchParams.get('id');
+
+  // get pizzaInfo
+  fetch(`/api/pizzas/${pizzaId}`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error({ message: 'Shiver me timbers!'});
+    };
+
+    return response.json();
+  })
+  .catch(err => {
+    console.log(err)
+    alert("Mamma mia, that's-a one spicy-a meatball-a! Let's-a go back.")
+    // The window history API exposes methods that let us control the state of the browser's session. As long as this particular browser session has a previous page, it will behave as if the user had clicked on the "back" button.
+    window.history.back();
+  })
+  .then(printPizza);
+
+};
+
 function printPizza(pizzaData) {
   console.log(pizzaData);
 
@@ -87,6 +111,28 @@ function handleNewCommentSubmit(event) {
   }
 
   const formData = { commentBody, writtenBy };
+
+  fetch( `/api/comments/${pizzaId}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error({ message: 'Shiver me timbers!'});
+    };
+    response.json();
+  })
+  .then(commentResponse => {
+    console.log(commentResponse);
+    location.reload();
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
 function handleNewReplySubmit(event) {
@@ -114,3 +160,5 @@ $backBtn.addEventListener('click', function() {
 
 $newCommentForm.addEventListener('submit', handleNewCommentSubmit);
 $commentSection.addEventListener('submit', handleNewReplySubmit);
+
+getPizza();
