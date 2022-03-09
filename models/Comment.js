@@ -32,7 +32,7 @@ const ReplySchema = new Schema
 const CommentSchema = new Schema
 (
     {
-        writenBy: {
+        writtenBy: {
             type: String
         },
         commentBody: {
