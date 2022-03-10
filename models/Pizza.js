@@ -6,10 +6,14 @@ const PizzaSchema = new Schema(
     {
         // Using MongoDB and Mongoose, we simply instruct the schema that this data will adhere to the built-in JavaScript data types, including strings, Booleans, numbers, and so on.
         pizzaName: {
-            type: String
+            type: String,
+            required: 'Give yer pizza a damn name!',
+            trim: true
         },
         createdBy: {
-            type: String
+            type: String,
+            required: 'Who the hell are ye, buck-a-roo?!',
+            trim: true
         },
         createdAt: {
             type: Date, 
@@ -20,6 +24,10 @@ const PizzaSchema = new Schema(
         },
         size: {
             type: String,
+            required: true,
+            // the enum option stands for enumerable, a popular term in web development that refers to a set of data that can be iterated over—
+            // If you want to provide a custom message for enumerable values, you need to look into implementing the validate option Mongoose lets you use, where you can create a custom function to test the values, just like you did with Inquirer!
+            enum: ['Personal', 'Small', 'Medium', 'Large'],
             default: 'Large'
         },
         // This indicates an array as the data type. You could also specify 'Array' in place of the brackets
