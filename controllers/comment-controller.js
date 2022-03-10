@@ -11,7 +11,7 @@ const commentController = {
                 // The $push method works just the same way that it works in JavaScript—it adds data to an array. 
                 { $push: { comments: _id } },
                 // Because we passed the option of new: true, we're receiving back the updated pizza (the pizza with the new comment included).
-                { new: true }
+                { new: true, runValidators: true }
             );
         })
         .then(dbPizzaData => {
@@ -29,7 +29,7 @@ const commentController = {
         Comment.findOneAndUpdate(
             { _id: params.commentId },
             { $push: { replies: body } },
-            { new: true }
+            { new: true, runValidators: true }
         )
         .then(dbPizzaData => {
             if (!dbPizzaData) {

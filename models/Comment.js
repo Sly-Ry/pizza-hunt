@@ -11,10 +11,14 @@ const ReplySchema = new Schema
             default: () => new Types.ObjectId()
         },
         replyBody: {
-            type: String
+            type: String,
+            required: "What in tarnation are ye try'n to say?!",
+            trim: true
         },
         writtenBy: {
-            type: String
+            type: String,
+            required: 'Who the hell are ye, buck-a-roo?!',
+            trim: true
         },
         createdAt: {
             type: Date,
@@ -33,10 +37,14 @@ const CommentSchema = new Schema
 (
     {
         writtenBy: {
-            type: String
+            type: String,
+            required: 'Who the hell are ye, buck-a-roo?!',
+            trim: true
         },
         commentBody: {
-            type: String
+            type: String,
+            required: "What in tarnation are ye try'n to say?!",
+            trim: true
         },
         createdAt: {
             type: Date,
