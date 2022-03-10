@@ -160,22 +160,20 @@ function handleNewReplySubmit(event) {event.preventDefault();
     },
     body: JSON.stringify(formData)
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Something went wrong!');
-    }
-    response.json();
-  })
-  .then(commentResponse => {
-    console.log(commentResponse);
-    location.reload();
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      response.json();
+    })
+    .then(commentResponse => {
+      console.log(commentResponse);
+      location.reload();
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
-  
-
 
 $backBtn.addEventListener('click', function() {
   window.history.back();
